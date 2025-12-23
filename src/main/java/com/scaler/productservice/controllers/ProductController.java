@@ -1,9 +1,12 @@
 package com.scaler.productservice.controllers;
 
 import com.scaler.productservice.dtos.FakeStoreProductDto;
+import com.scaler.productservice.exceptions.ProductNotFoundException;
 import com.scaler.productservice.models.Product;
 import com.scaler.productservice.services.FakeStoreProductService;
 import com.scaler.productservice.services.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +22,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
+    public Product getProductById(@PathVariable Long id) throws ProductNotFoundException {
         return productService.getProductById(id);
     }
 
@@ -46,5 +49,10 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public Product deleteProduct(@PathVariable Long id) {
         return null;
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<String> handleProductNotFoundException(ProductNotFoundException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_GATEWAY);
     }
 }
