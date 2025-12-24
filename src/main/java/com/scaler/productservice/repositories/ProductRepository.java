@@ -11,6 +11,8 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
 
+    @Override
+    Product save(Product product);
 
     @Override
     Optional<Product> findById(Long productId);
@@ -24,4 +26,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     Optional<Product> findByCategory(Category category);
 
     Optional<Product> findByCategory_Id(Long categoryId);
+
+    @Override
+    void deleteById(Long id);
 }

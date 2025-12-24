@@ -34,12 +34,12 @@ public class ProductController {
 
     @PostMapping
     public Product createProduct(@RequestBody Product product) {
-        return null;
+        return productService.createProduct(product);
     }
 
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody Product product) {
-        return null;
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product product) throws ProductNotFoundException {
+        return productService.replaceProduct(id,product);
     }
 
     @PatchMapping("/{id}")
@@ -48,8 +48,10 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public Product deleteProduct(@PathVariable Long id) {
-        return null;
+    public Product deleteProduct(@PathVariable Long id) throws ProductNotFoundException {
+        Product product = productService.getProductById(id);
+        productService.deleteProduct(product.getId());
+        return product;
     }
 
     @ExceptionHandler(ProductNotFoundException.class)

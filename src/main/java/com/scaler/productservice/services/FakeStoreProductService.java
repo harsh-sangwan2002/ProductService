@@ -37,6 +37,11 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
+    public Product createProduct(Product product) {
+        return null;
+    }
+
+    @Override
     public Product getProductById(Long id) throws ProductNotFoundException {
 //        throw new RuntimeException("Not implemented");
 
@@ -66,5 +71,20 @@ public class FakeStoreProductService implements ProductService {
             products.add(convertFakeStoreProductDtotoFakeStoreProduct(fakeStoreProductDto));
         }
         return products;
+    }
+
+    @Override
+    public Product replaceProduct(Long id, Product product) {
+        return null;
+    }
+
+    @Override
+    public Product updateProduct(Long id, Product product) {
+        return null;
+    }
+
+    @Override
+    public void deleteProduct(Long id) throws ProductNotFoundException {
+
     }
 }
