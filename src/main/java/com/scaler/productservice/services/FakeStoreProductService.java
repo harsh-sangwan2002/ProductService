@@ -1,8 +1,11 @@
 package com.scaler.productservice.services;
 
 import com.scaler.productservice.dtos.FakeStoreProductDto;
+import com.scaler.productservice.exceptions.ProductNotFoundException;
 import com.scaler.productservice.models.Category;
 import com.scaler.productservice.models.Product;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -33,17 +36,22 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public ResponseEntity<Product> getProductById(Long id) throws ProductNotFoundException {
         // Make an API call to FakeStore to get the product with the given id.
         FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject(
                 "https://fakestoreapi.com/products/" + id,
                 FakeStoreProductDto.class);
 
-        return convertFakeStoreDtoProductToProduct(fakeStoreProductDto);
+        Product product = convertFakeStoreDtoProductToProduct(fakeStoreProductDto);
+        return new ResponseEntity<>(
+                product, HttpStatus.OK
+        );
+
+//        throw new ProductNotFoundException("Cannot find product with given id.");
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public ResponseEntity<List<Product>> getAllProducts() {
         // List<FakeStoreProductDto>.class is not available at run-time due to type-erasure property of Java.
         // So we need to do it inside the array
         FakeStoreProductDto[] fakeStoreProductDtos = restTemplate.getForObject(
@@ -56,6 +64,8 @@ public class FakeStoreProductService implements ProductService {
             products.add(convertFakeStoreDtoProductToProduct(fakeStoreProductDto));
         }
 
-        return  products;
+        return  new ResponseEntity<>(
+                products, HttpStatus.OK
+        );
     }
 }
