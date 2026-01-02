@@ -13,6 +13,8 @@ import lombok.Setter;
 public class BaseModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment the id
     private Long id;
 }
+
+// MappedSuperClass - No table for BaseModel class but all the attributes of BaseModel will be present in the child classes.

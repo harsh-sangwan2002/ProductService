@@ -42,12 +42,14 @@ public class FakeStoreProductService implements ProductService {
                 "https://fakestoreapi.com/products/" + id,
                 FakeStoreProductDto.class);
 
+        if(fakeStoreProductDto==null){
+            throw new ProductNotFoundException("Cannot find product with given id.");
+        }
+
         Product product = convertFakeStoreDtoProductToProduct(fakeStoreProductDto);
         return new ResponseEntity<>(
                 product, HttpStatus.OK
         );
-
-//        throw new ProductNotFoundException("Cannot find product with given id.");
     }
 
     @Override

@@ -18,3 +18,8 @@ public class Product extends BaseModel {
     @ManyToOne
     private Category category;
 }
+
+/*
+Product === Category
+(M)      :    (1)
+*/
