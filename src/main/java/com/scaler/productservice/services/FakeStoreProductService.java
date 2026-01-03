@@ -4,7 +4,6 @@ import com.scaler.productservice.dtos.FakeStoreProductDto;
 import com.scaler.productservice.exceptions.ProductNotFoundException;
 import com.scaler.productservice.models.Category;
 import com.scaler.productservice.models.Product;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -70,5 +69,20 @@ public class FakeStoreProductService implements ProductService {
         return  new ResponseEntity<>(
                 products, HttpStatus.OK
         );
+    }
+
+    @Override
+    public Product createProduct(Product product) {
+        return null;
+    }
+
+    @Override
+    public Product replaceProduct(Long id, Product product) {
+        return null;
+    }
+
+    @Override
+    public void deleteProductById(Long id) throws ProductNotFoundException {
+
     }
 }
